@@ -11,7 +11,7 @@ These tools will work on Windows (i386 and AMD64 architecture) and Windows 11 (A
 
 ### Ay_Emul
 
-[Ay_Emul](https://bulba.untergrund.net/emulator_e.htm) is a music player and converter that supports the AY-3-891x and YM2149F sound chips. It can convert `SNDH` files for the Atari ST to `YM6` format which can be converted to play on the Chloe 280SE. 
+[Ay_Emul](https://bulba.untergrund.net/emulator_e.htm) is a music player and converter that supports the AY-3-891x and YM2149F sound chips. It can convert `SNDH` files for the Atari ST to `YM6` format which can be converted to play on the Chloe 280SE. Export is done by right-clicking the music in the play list.
 
 ### Vortex Tracker II
 
