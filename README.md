@@ -73,7 +73,7 @@ This will extract 30 video frames per second from the video and will output them
 
 ### Image2ULAplus
 
-Based on the earlier SCRplus, Image2ULAplus is an alternative to DaDither. It has limited dithering and no batch processing, but it can be useful in converting non-photo realistic images.
+Based on the earlier SCRplus, Image2ULAplus is an alternative to DaDither. It has limited dithering and no batch processing, but it can be useful in converting non-photo realistic images. It's included with ZX-Paintbrush in this repo.
 
 ### ImageMagick
 
