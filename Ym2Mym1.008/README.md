@@ -1,4 +1,4 @@
-		<h1>Ym2Mym</h1>
+<h1>Ym2Mym</h1>
 
 <p id=chapter>Description</p>
 
@@ -94,66 +94,61 @@ As a final note, we'd like to point out that if technically speaking the AY and 
 <p id=chapter>Switches</p>
 
 <ul>
-
-    <li>-rn Reference Clock
-		<br>
-        <ul>
-            <li>-r1        => Oric, Amstrad CPC</li>
-            <li>-r1.773400 => ZX Spectrum</li>
-            <li>-r2        => Atari ST [default]</li>
-    		<br>
-		</ul>
-	</li>
-
-    <li>-tn Target Clock
-    	<ul>
-            <li>-t0        => Use Reference (no retune)</li>
-            <li>-t1.0      => Oric, Amstrad CPC [default]</li>
-            <li>-t1.773400 => ZX Spectrum</li>
-            <li>-t2.0      => Atari ST</li>
-            <br>
-    	</ul>
-   	</li>
-
-	<li>-vn Verbosity
-		<br>
-		Enables or disable the printing of informative messages.
-		<ul>
-			<li>-v0 => Silent [default]</li>
-			<li>-v1 => Shows information about what Ym2Mym is doing</li>
-			<br>
-		</ul>
-	</li>
-
-	<li>-hn Header
-		<br>
-		Adds a tape compatible header
-		<ul>
-			<li>-h0 => No tape header [default]</li>
-			<li>-h1 => Use tape header (requires a start address and a name)</li>
-			<br>
-		</ul>
-	</li>
-
-	<li>-mn Max size
-		<br>
-		The MYM replay routine generally is provided with a limited size for the music. Using this switch you can force Ym2Mym to refuse to convert a music and output an error message if the final compressed file gets larger than the specified number.
-		<ul>
-			<li>-m0 => No size limit [default]</li>
-			<li>-m1234 => Outputs an error if the exported size is too large</li>
-			<br>
-		</ul>
-	</li>
-
-	<li>-dxn  Duration mode
-		<br>
-		You can use this flag to force the tool to truncate the music after a specific number of frames (there's 50 frames in a second). Use -dt to truncate, and -df to fade.
-		<ul>
-			<li>-dt1234 => Truncate at frame 1234</li>
-			<li>-df1234 => Fade out at frame 1234</li>
-			<br>
-		</ul>
-	</li>
+<li>-rn Reference Clock
+<br>
+<ul>
+<li>-r1        => Oric, Amstrad CPC</li>
+<li>-r1.75     => Chloe 280SE</li>
+<li>-r1.77345  => ZX Spectrum 128</li>
+<li>-r2        => Atari ST [default]</li>
+<br>
+</ul>
+</li>
+<li>-tn Target Clock
+<ul>
+<li>-t0        => Use Reference (no retune)</li>
+<li>-t1.0      => Oric, Amstrad CPC [default]</li>
+<li>-t1.773400 => ZX Spectrum</li>
+<li>-t2.0      => Atari ST</li>
+<br>
+</ul>
+</li>
+<li>-vn Verbosity
+<br>
+Enables or disable the printing of informative messages.
+<ul>
+<li>-v0 => Silent [default]</li>
+<li>-v1 => Shows information about what Ym2Mym is doing</li>
+<br>
+</ul>
+</li>
+<li>-hn Header
+<br>
+Adds a tape compatible header
+<ul>
+<li>-h0 => No tape header [default]</li>
+<li>-h1 => Use tape header (requires a start address and a name)</li>
+<br>
+</ul>
+</li>
+<li>-mn Max size
+<br>
+The MYM replay routine generally is provided with a limited size for the music. Using this switch you can force Ym2Mym to refuse to convert a music and output an error message if the final compressed file gets larger than the specified number.
+<ul>
+<li>-m0 => No size limit [default]</li>
+<li>-m1234 => Outputs an error if the exported size is too large</li>
+<br>
+</ul>
+</li>
+<li>-dxn  Duration mode
+<br>
+You can use this flag to force the tool to truncate the music after a specific number of frames (there's 50 frames in a second). Use -dt to truncate, and -df to fade.
+<ul>
+<li>-dt1234 => Truncate at frame 1234</li>
+<li>-df1234 => Fade out at frame 1234</li>
+<br>
+</ul>
+</li>
 </ul>
 
 <br>
