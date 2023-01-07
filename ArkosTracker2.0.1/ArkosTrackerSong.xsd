@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.arkos.com/ArkosTrackerSong"
+xmlns:aks="http://www.arkos.com/ArkosTrackerSong" elementFormDefault="qualified">
+
+	<!-- ================================== Basic types ================================== -->
+	<simpleType name="positiveIntegerIncludingZero">
+		<restriction base="integer">
+			<minInclusive value="0" />
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="hexadecimalPositiveNumber">
+		<restriction base="string">
+			<pattern value="#[0-9A-F]+" />
+		</restriction>
+	</simpleType>
+	
+	<simpleType name="versionNumber">
+		<restriction base="string">
+			<pattern value="[0-9]+\.[0-9]+" />
+		</restriction>
+	</simpleType>
+
+  <simpleType name="hardwareEnvelope">
+    <restriction base="integer">
+      <minInclusive value="8" />
+      <maxInclusive value="15" />
+    </restriction>
+  </simpleType>
+	
+	<!-- ================================== Song ================================== -->
+	<complexType name="songType">
+		<sequence>
+			<element name="formatVersion" type="aks:versionNumber" />
+			<element name="title" type="string" minOccurs="0" />
+			<element name="author" type="string" minOccurs="0" />
+			<element name="composer" type="string" minOccurs="0" />
+			<element name="comment" type="string" minOccurs="0" />
+			<element name="creationDate" type="date" minOccurs="0" />
+			<element name="modificationDate" type="date" minOccurs="0" />
+
+			<!-- First, the Instruments, Arpeggios, Pitchs, then the Subsongs that will use them. -->
+			<element name="fmInstruments" type="aks:fmInstrumentsType" />
+			<element name="sampleInstruments" type="aks:sampleInstrumentsType" />
+
+			<element name="arpeggios" type="aks:arpeggiosType" />
+			<element name="pitchs" type="aks:pitchsType" />
+						
+			<element name="subsongs" type="aks:subsongsType" />
+
+      <element name="soundEffects" type="aks:soundEffectsType" minOccurs="0"/>
+		</sequence>
+	</complexType>
+
+  <!-- ================================== Sound effects ============================= -->
+  <complexType name="soundEffectsType">
+    <sequence>
+      <element name="soundEffect" type="aks:soundEffectType" minOccurs="0" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+
+  <complexType name="soundEffectType">
+    <sequence>
+      <element name="index" type="positiveInteger" />
+      <element name="exported" type="boolean" />
+      <element name="exportedNote" type="aks:positiveIntegerIncludingZero" />
+    </sequence>
+  </complexType>
+
+  <!-- ================================== Subsongs ================================== -->
+	<complexType name="subsongsType">
+		<sequence>
+			<element name="subsong" type="aks:subsongType" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="psgMetadata">
+		<sequence>
+		  <element name="type" type="aks:psgType" minOccurs="0"/>
+		  <element name="psgFrequency" type="positiveInteger" />
+		  <element name="referenceFrequency" type="float" minOccurs="0"/>
+		  <element name="samplePlayerFrequency" type="positiveInteger" minOccurs="0"/>
+		  <element name="mixingOutput" type="aks:psgMixingOutput" minOccurs="0"/>
+		</sequence>
+	</complexType>
+  
+	<complexType name="subsongType">
+		<sequence>
+			<element name="title" type="string" />
+			<element name="initialSpeed" type="unsignedByte" />
+			<element name="endIndex" type="unsignedByte" />
+			<element name="loopStartIndex" type="unsignedByte" />
+      <element name="replayFrequency" type="float"/>
+      <element name="psgMetadata" type="aks:psgMetadata" maxOccurs="unbounded" />
+			
+      <element name="digiChannel" type="aks:positiveIntegerIncludingZero" />
+	  <element name="highlightSpacing" type="positiveInteger" />
+      <element name="secondaryHighlight" type="positiveInteger" />
+			
+			<!-- First, the Tracks. THEN, the Patterns. -->
+			<element name="tracks" type="aks:tracksType" />
+			<element name="speedTracks" type="aks:speedTracksType" />
+			<element name="eventTracks" type="aks:eventTracksType" />
+			
+			<element name="patterns" type="aks:patternsType" />
+		</sequence>
+	</complexType>
+
+	<simpleType name="psgMixingOutput">
+		<restriction base="string">
+			<enumeration value="ABC" />
+			<enumeration value="ACB" />
+			<enumeration value="BAC" />
+			<enumeration value="BCA" />
+			<enumeration value="CAB" />
+			<enumeration value="CBA" />
+			<enumeration value="left" />
+			<enumeration value="center" />
+			<enumeration value="right" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="psgType">
+		<restriction base="string">
+			<enumeration value="ay" />
+			<enumeration value="ym" />
+		</restriction>
+	</simpleType>
+	
+	<!-- ================================== Arpeggios ================================== -->
+	<complexType name="arpeggiosType">
+		<sequence>
+			<element name="arpeggio" type="aks:arpeggioType" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="arpeggioType">
+		<sequence>
+			<element name="index" type="unsignedByte" />
+			<element name="name" type="string" />
+			<element name="speed" type="unsignedByte" />
+			<element name="loopStartIndex" type="unsignedByte" />
+			<element name="endIndex" type="unsignedByte" />
+			<element name="arpeggioCell" type="aks:arpeggioCell" minOccurs="0" maxOccurs="127" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="arpeggioCell">
+		<sequence>
+			<element name="note" type="byte" />
+			<element name="octave" type="byte" />
+		</sequence>
+	</complexType>
+	
+	<!-- ================================== Pitchs ================================== -->
+	<complexType name="pitchsType">
+		<sequence>
+			<element name="pitch" type="aks:pitchType" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="pitchType">
+		<sequence>
+			<element name="index" type="unsignedByte" />
+			<element name="name" type="string" />
+			<element name="speed" type="unsignedByte" />
+			<element name="loopStartIndex" type="unsignedByte" />
+			<element name="endIndex" type="unsignedByte" />
+			<element name="value" type="short" minOccurs="0" maxOccurs="127" />
+		</sequence>
+	</complexType>
+	
+	<!-- ================================== Tracks ================================== -->
+	<complexType name="tracksType">
+		<sequence>
+			<!-- There should be at least one Track, even if it is empty. -->
+			<element name="track" type="aks:trackType" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="trackType">
+		<sequence>
+			<element name="number" type="aks:positiveIntegerIncludingZero" />
+			<element name="title" type="string" />
+            <!-- Optional, not used when loading a song. -->
+            <element name="usedHeight" type="unsignedByte" minOccurs="0"/>
+			<!-- Not used when loading/saving a Song, but documented anyway. Used when (de)serializating copy/paste, for example. -->
+    		<element name="trackMask" type="aks:trackMaskType" minOccurs="0"/>
+			<element name="cell" type="aks:trackCellType" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="trackCellType">
+		<sequence>
+			<element name="index" type="aks:positiveIntegerIncludingZero" />
+			<!-- <element name="note" type="aks:noteAndOctaveType" minOccurs="0" maxOccurs="1" /> -->
+			<element name="note" type="aks:noteType" minOccurs="0"/>
+			<element name="instrument" type="positiveInteger" minOccurs="0"/>
+			<element name="effectAndValue" type="aks:effectAndValueType" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+ 	<simpleType name="noteType">
+		<restriction base="integer">
+			<minInclusive value="-1" />
+			<maxInclusive value="119" />
+		</restriction>
+	</simpleType>
+    
+    <complexType name="trackMaskType">
+        <sequence>
+            <!-- The index of the Track this mask is related to. -->
+            <element name="trackIndex" type="aks:positiveIntegerIncludingZero" />
+            <element name="isNoteAndOctaveExcluded" type="boolean" minOccurs="0" />
+            <element name="isInstrumentExcluded" type="boolean" minOccurs="0" />
+            <element name="isEffect1Excluded" type="boolean" minOccurs="0" />
+            <element name="isEffect2Excluded" type="boolean" minOccurs="0" />
+            <element name="isEffect3Excluded" type="boolean" minOccurs="0" />
+            <element name="isEffect4Excluded" type="boolean" minOccurs="0" />
+        </sequence>
+    </complexType>
+	
+<!-- 	<simpleType name="noteAndOctaveType">
+		<union>
+			<simpleType>
+				<restriction base="string">
+					<enumeration value="RST" />
+				</restriction>
+			</simpleType>
+			<simpleType>
+				<restriction base="string">
+					<pattern value="[A-G]{1}(#|-)[0-9]{1}"></pattern>
+				</restriction>
+			</simpleType>
+		</union>
+	</simpleType> -->
+	
+	<complexType name="effectAndValueType">
+		<sequence>
+			<element name="index" type="aks:positiveIntegerIncludingZero" />
+			<element name="effect" type="aks:effectType" />
+			<element name="hexValue" type="aks:hexadecimalPositiveNumber" />
+		</sequence>
+	</complexType>
+	
+	<element name="song" type="aks:songType" />
+	
+	
+	<simpleType name="effectType">
+		<restriction base="string">
+			<enumeration value="arpeggio3Notes" />
+			<enumeration value="arpeggio4Notes" />
+			<enumeration value="arpeggioTable" />
+			<enumeration value="forceArpeggioSpeed" />
+			<enumeration value="forceInstrumentSpeed" />
+			<enumeration value="forcePitchTableSpeed" />
+			<enumeration value="pitchDown" />
+			<enumeration value="pitchUp" />
+			<enumeration value="pitchGlide" />
+			<enumeration value="pitchTable" />
+			<enumeration value="reset" />
+			<enumeration value="volume" />
+			<enumeration value="volumeIn" />
+			<enumeration value="volumeOut" />
+		</restriction>
+	</simpleType>
+
+
+	<!-- ================================== Speed Tracks ================================== -->
+	<complexType name="speedTracksType">
+		<sequence>
+			<!-- There should be at least one SpeedTrack, even if it is empty. -->
+			<element name="speedTrack" type="aks:speedTrackType" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="speedTrackType">
+		<sequence>
+			<element name="number" type="aks:positiveIntegerIncludingZero" />
+			<element name="title" type="string" />
+            <!-- Optional, not used when loading a song. -->
+            <element name="usedHeight" type="unsignedByte" minOccurs="0"/>
+            <element name="speedCell" type="aks:speedTrackCellType" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="speedTrackCellType">
+		<sequence>
+			<element name="index" type="aks:positiveIntegerIncludingZero" />
+			<element name="value" type="unsignedByte"/>
+		</sequence>
+	</complexType>
+
+	<!-- ================================== Event Tracks ================================== -->
+	<complexType name="eventTracksType">
+		<sequence>
+			<!-- There should be at least one EventTrack, even if it is empty. -->
+			<element name="eventTrack" type="aks:eventTrackType" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="eventTrackType">
+		<sequence>
+			<element name="number" type="aks:positiveIntegerIncludingZero" />
+			<element name="title" type="string" />
+            <!-- Optional, not used when loading a song. -->
+            <element name="usedHeight" type="unsignedByte" minOccurs="0"/>
+            <element name="eventCell" type="aks:eventTrackCellType" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="eventTrackCellType">
+		<sequence>
+			<element name="index" type="aks:positiveIntegerIncludingZero" />
+			<element name="value" type="unsignedByte"/>
+		</sequence>
+	</complexType>
+	
+
+	<!-- ================================== Patterns ================================== -->
+	<complexType name="patternsType">
+		<sequence>
+			<element name="pattern" type="aks:patternType" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="patternType">
+		<sequence>
+			<element name="height" type="positiveInteger" />
+			<element name="speedTrackNumber" type="aks:positiveIntegerIncludingZero" />
+			<element name="eventTrackNumber" type="aks:positiveIntegerIncludingZero" />
+			<element name="patternCell" type="aks:patternCellType" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="patternCellType">
+		<sequence>
+			<element name="transposition" type="integer" />
+			<element name="trackNumber" type="aks:positiveIntegerIncludingZero" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+
+	<!-- ================================== Instruments ================================== -->
+	<!-- ================================== FM Instruments ================================== -->
+	<complexType name="fmInstrumentsType">
+		<sequence>
+			<!-- The 0th FmInstrument is not encoded. -->
+			<element name="fmInstrument" type="aks:fmInstrumentType" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<attribute name="version" type="string" />
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+	
+	<complexType name="fmInstrumentType">
+		<sequence>
+			<element name="number" type="integer" />
+			<element name="title" type="string" />
+			<element name="speed" type="byte" />
+			<element name="isLooping" type="boolean" />
+			<element name="loopStartIndex" type="aks:positiveIntegerIncludingZero" />
+			<element name="endIndex" type="aks:positiveIntegerIncludingZero" />
+			<element name="isRetrig" type="boolean" />
+			<element name="colorArgb" type="integer" minOccurs="0" />
+			<element name="fmInstrumentCell" type="aks:instrumentCellType" minOccurs="0" maxOccurs="128" />
+		</sequence>
+	</complexType>
+
+	<complexType name="instrumentCellType">
+		<sequence>
+			<element name="link" type="aks:linkType" minOccurs="0" />
+			<element name="volume" type="aks:positiveIntegerIncludingZero" minOccurs="0" />
+			<element name="noise" type="aks:positiveIntegerIncludingZero" minOccurs="0" />
+			<element name="softwarePeriod" type="aks:positiveIntegerIncludingZero" minOccurs="0" />
+			<element name="softwareArpeggio" type="integer" minOccurs="0" />
+			<element name="softwarePitch" type="integer" minOccurs="0" />
+			<element name="ratio" type="aks:positiveIntegerIncludingZero" minOccurs="0" />
+			<element name="hardwareCurve" type="aks:hardwareEnvelope" minOccurs="0" />
+			<element name="hardwarePeriod" type="integer" minOccurs="0" />
+			<element name="hardwareArpeggio" type="integer" minOccurs="0" />
+			<element name="hardwarePitch" type="integer" minOccurs="0" />
+			<element name="isRetrig" type="boolean" minOccurs="0" />
+		</sequence>
+	</complexType>
+	
+	<simpleType name="linkType">
+		<restriction base="string">
+			<enumeration value="softOnly" />
+			<enumeration value="hardOnly" />
+			<enumeration value="softToHard" />
+			<enumeration value="hardToSoft" />
+			<enumeration value="noSoftNoHard" />
+			<enumeration value="softAndHard" />
+		</restriction>
+	</simpleType>
+	
+	<!-- ================================== Sample Instruments ================================== -->
+	<complexType name="sampleInstrumentsType">
+		<sequence>
+			<element name="sampleInstrument" type="aks:sampleInstrumentType" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+	
+	<complexType name="sampleInstrumentType">
+		<sequence>
+			<element name="number" type="integer" />
+			<element name="title" type="string" />
+			<element name="frequencyHz" type="integer" />
+			<element name="isLooping" type="boolean" />
+			<element name="loopStartIndex" type="aks:positiveIntegerIncludingZero" />
+			<element name="endIndex" type="aks:positiveIntegerIncludingZero" />
+			<element name="volumeRatio" type="float" />
+			<element name="colorArgb" type="integer" minOccurs="0" />
+			<!-- The samples are stored in 8 bits, unsigned. -->
+			<element name="sampleData8bitsUnsignedBase64" type="base64Binary" />
+		</sequence>
+	</complexType>
+	
+</schema>

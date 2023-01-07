@@ -1,0 +1,338 @@
+2.0.1 - 20/03/21
+--------------------------------------
+
+New feature:
+- AKY 6502 player for Atari 8 bits! Thanks xxl!
+
+Major bug fixes:
+- AKG player:
+        - ROM player only: corrected a compilation error if a song used Events but not Retrig (thanks TheGeps!).
+- AKY players:
+        - In a very very rare case, some data were badly encoded, resulting in random memory reading (thanks Abalore!). Nothing to change player-side, but I advise you to generate your songs again, just to be safe.
+        - MSX MultiPsg player: hardware envelope could be broken if a Retrig was used (thanks Zoran!).
+        
+Small features:
+- Added the 6502 Mads source profile.
+- Command line tools: can now import directly for 6502 (Acme/Mads).
+
+
+2.0.0 - 21/11/20
+--------------------------------------
+
+Misc:
+- The players are now officially using MIT license. The license file is present in the folder of each player.
+
+Small features:
+- AKG: the generated pitch are now encoded using a label, not "$ + 2", to satisfy some assemblers that don't recognize this symbol (thanks Malban).
+- All players: added securities to allow using the "-void" Rasm option (thanks Krusty).
+- CPC Basic: Added an AKG tester to play music and sound effects in Basic, under interruption.
+- AKM and Lightweight export: Added a warning when using an instrument top-retrig, as these formats don't allow it (thanks Zik).
+
+Bug fixes:
+- All players:
+        - Sound effects: the noise could be badly mixed in some cases.
+        - Sound effects: the sound was not cut when using "noise only" (no sound) (thanks Zik!!).
+- AKM player: Using many Arpeggios or Pitch table wasn't well managed (thanks Zik).
+- Arp/Pitch editor: corrected a possible crash when inserting a new item after created a new Arp/Pitch (thanks Xia).
+
+
+
+
+2.0.0a9 - 15/06/20
+--------------------------------------
+Small features:
+- Now stores the PSG reference frequency (440Hz, for example) as a float for more accuracy.
+- Option in the setup to save the AKS file in an uncompressed way (useful to transform the XML more easily).
+- Added more warning and error output on the Command Line tools.
+- Added an option on some Command Line tools (AKM, LW) to consider all warnings as errors, as a security.
+
+Bug fixes:
+- AKM player (thanks Arnaud!):
+        - Corrected a problem with Arp and Pitch that could alter the note of the next tracks.
+        - Corrected a possible crash when unknown effects are found.
+- All ROM players:
+        - Corrected ROM players + SFX that could have a problem if the buffer was not cleared before (no need to do that anymore).
+- Corrected a problem in the player configuration generation in some rare cases.
+- Corrected a possible MIDI import crash (thanks Pulkomandy!).
+- Corrected a huge bug on Mac in the Pattern Viewer: a click on effects would select it, not make a simple "go to" (thanks RedBug!).
+- Corrected a copy/paste bug in the Pattern Viewer if a single note was copied (thanks Pulkomandy!).
+- MOD import: managed speed better if BPM used instead of old-school ticks (thanks Megachur!).
+- Disark:
+        - Forgot to consider a few instructions as "undocumented" (ld e,ixh, ld e,ixl and ld iyh,n) (thanks Cpcitor!).
+        - Corrected how some undocumented instructions were encoded ("rl (ix+r),b" for example), when using the "as bytes" option (thanks Roudoudou!).
+        - More output if an area is invalid.
+        - Corrected a bug in AKG generation, if no effects were present (Disark would fail) (thanks Cpcitor!).
+- Corrected the broken small application icon on Mac.
+
+
+
+
+2.0.0a8 - 01/02/20
+--------------------------------------
+New features:
+- Serial: connect to your machine (CPC...) in real-time via Serial (COM port, etc.) to transmit the sound!
+        - The client supports CPC only for now, because I have no other hardware to test, but it's easy to implement new hardware.
+        - The supported Serial interface on CPC are CPC Booster, Mini Booster, USIfAc, and Albireo. AT2 can support any kind of interface.
+        - Can support any kind of extensions. Right now, supports bare PSG and PlayCity (9 channels).
+        - Look at the Serial source folder to test, a ready DSK is also available!
+- A toolbox in the pattern viewer allows to transpose, swap, remap specific instruments (in the pattern viewer only).
+- Instrument preview when loading them.
+        - By default, on Linux and Mac, a "non-native" file picker will be used, because the preview might not be visible depending on your OS. You can change this behavior in the File > Setup.
+- MOD import can now generate directly PSG instruments instead of samples (detecting drums from the instrument title).
+- Splash screen with tips.
+- New icon and logo!
+- When saving, extensions are automatically added (especially useful on Linux where is wasn't already the case).
+- Put the Record icon the pattern viewer, not in the main toolbar.
+- Added an option in the pattern viewer not to write an instrument when a note is entered (works also for Midi notes).
+- Added shortcuts (numpad 7/8/9/4/5) to move the cursor to each quarter line of the pattern.
+- Midi import detects empty tracks (like "conductor" tracks) and don't import them by default, correcting some Midi imports that could miss the first track (thanks Gurneyh).
+- Optimized the midi import, which could be slow (actually, optimized the song optimizer).
+- In any grid, added the S shortcut to invert the sign, if possible.
+- Capturing an instrument in the pattern viewer also changes the note in the test area.
+- Pressing Enter in the test area (F6) plays the current note in the test area.
+
+Tweakings:
+- Added a Step icon in the pattern viewer, instead of a text.
+- In fullscreen, no more border around the application window (thanks LeeBee).
+- The "clear cell" in the Pattern Viewer is now Shift+Backspace, and "delete selection" Ctrl+Backspace.
+
+Bug fixes:
+- Corrected Disark to manage EQUs with SDCC.
+- Corrected a bug in the AKY multi-PSG player, for songs without noise (thanks Andrew Owen).
+- Corrected a copy/paste bug in the pattern viewer, preventing effects to be copied "to the left".
+- Corrected a small bug on player config generation when using B and C effects, but never A (thanks Robert Pearmain).
+- Corrected a bug on WAV export, where unwanted sounds could be heard at the beginning (thanks MrLou).
+- Corrected the Midi recorded note that were also clearing the effects.
+- Midi notes cannot be recorded anymore if the Pattern Viewer is not visible (too much error-prone) (thanks JB Le Daron).
+- Corrected a crash when songs or instruments are loaded with a broken or unknown XML structure (thanks Gurneyh).
+- Corrected a possible crash when mixing tracks on Midi import.
+- Fixed the broken tray logo on MacOsX.
+
+
+
+
+2.0.0a7 - 22/08/19
+--------------------------------------
+New features:
+- Undo/redo for the PatternViewer (only!). Functional, but changing the song properties will clear the history (will improve that later).
+- YM chip support.
+- 6502 AKY player for Oric and Apple 2, thanks to Arnaud Cocquière!
+- Sound effects support for AKY player.
+- Pattern viewer:
+        - Added colors to instruments, that are also shown on the pattern viewer (notes and events).
+        - Effect chooser, with a possibility to overwrite the effect under the cursor.
+
+Changes & smaller features:
+- Disark: music and sound effects now export their start label (useful for SDCC).
+- Better optimization when exporting and importing (useless effects are better optimized).
+- Pattern viewer:
+    - Taller middle line in the pattern viewer, slight changes of colors.
+    - Capturing an instrument in the pattern viewer also changes the current octave from the note.
+    - New keyboard shortcut to play from the cursor (only from the pattern viewer: Alt+Space or Ctrl+Shift+Space on Linux).
+- Song to WAV can loop multiple times.
+- Improved the import of VT2 old files, in case the PSG frequency wasn't set in the file.
+- ESC in the Test Area now stops the song and all sound too.
+- Added an example to use a music from BASIC (CPC) in the AKG/testers folder.
+- 6502: Added a source profile for 6502 (ACME assembler).
+- Linux: Reduced the size of the executables (thanks ellvis for testing).
+
+Bug fixes:
+- Corrected a Disark bug on SBC+immediate instruction with SDCC (thanks teopl).
+- Corrected a "player configuration" bug if using sound effects. If everything sounded right, don't worry. Else, export the sound effects again and use the latest players.
+- Corrected a bug when exporting samples in an YM (if the end was not the same as the size) (thanks Le Glafouk).
+- Corrected a small bug in the AKY ROM buffer management (a few bytes were wasted).
+- Forgot the MIDI files to show in the file picker when opening a file (thanks Pulkomandy).
+- Corrected the tooltips disappearing on Windows 7 + Aero theme (hopefully! Thanks znanarz).
+- Corrected a bug when loading a new song, the mutes states were shown but the sound were still on (thanks Xia).
+- Corrected a bug when importing .128, instrument pitches were inverted.
+
+
+(2.0.0a6 - never released)
+
+
+2.0.0a5 - 11/05/19
+--------------------------------------
+New features:
+- Converts all the sources from Rasm to ANY OTHER ASSEMBLER, thanks to Disark, a new command-line tool! Read the compatibility page for more information.
+- New format AKM (minimalist), for ultra-lightweight (yet powerful) music and player (also sound effects)! Makes Lightweight format rather obsolete.
+- Midi in: plug your keyboard and play! You can also change instrument from your keyboard. Only "Note On" and "Program change" MIDI messages are recognized (from any MIDI channel).
+- Midi import (see the Midi import page on the website about how to get the best results).
+- UI overhaul:
+    - Expressions (Arpeggio/Pitch) have now a dedicated tab. More space for everything else! Watch out for the F1-F4 shortcuts, they have changed.
+    - A small square shows which line is played in the Instrument Editor, and the Arpeggio/Pitch tables.
+    - Improved how the focus on components is shown.
+    - Harmonized the colors.
+- ROM players! Using a simple flag, the following players can be used in read-only area (such as ROM) while using a small buffer you can put in RAM:
+        - AKY (only the main player).
+        - AKG (sound effect player included).
+        - AKM (sound effect player included).
+        - Stand-alone sound effect player.
+        - Lightweight NOT done, unless I'm asked to (you should use AKM now, it is more powerful).
+- Sound effects code changed: speed is now included, allowing major optimizations for slow sounds.
+- The Sound Effect Export dialog now has an option to find the notes directly from the Song.
+- Clicking on the instrument symbol in the instrument list to listen to the instrument.
+- MSX: R7 now has its bit 7 set and bit 6 reset (hardware compatibility).
+- The latest folder is saved according to a context (song, instrument, export, other).
+
+Breaking changes:
+- As stated above, the sound effects must be regenerated to use the new players, as the format changed.
+- There is no more one player for each platform: one player for them all. It makes maintenance easier for me (they were generated anyway).
+- Players are now using special features from RASM. Please check the compatibility page, a new source converter is available (Disark)!
+
+Changes & smaller features:
+- Pattern Viewer:
+    - Shift+left click selects from the cursor to the pointed area.
+    - Removed the ugly "collapse effects" icons, now unified into a single icon. More space for later features.
+    - When record is off, you can now play notes in every column (thanks Mr Lou for the suggestion).
+- Mouse wheel can be used in the Test button of the Test Area, but also in the Sound Effect Export dialog.
+- Loaded samples can only be 64kb maximum, instead of 128kb. This was necessary, because it made source impossible to encode the sample length if >64kb.
+- Shortcuts:
+        - Added the "toggle play/stop" shortcut (Space). VERY USEFUL, USE IT! Thanks Mr Lou for the suggestion.
+        - Added the "select whole track" shortcut in the Pattern Viewer (Ctrl+T).
+        - Added Escape as a Stop shortcut.
+        - "Play line" is now Return.
+        - "Capture Instrument" is now Shift+Return.
+        - F1->F6 are now changed to reflect the new interface.
+        - Added a default key for loop pattern: Shift+space.
+        - Added Ctrl+I/O to set the start/end in the Linker/Expressions/Instrument editor.
+        - Added Ctrl+P to toggle the loop in the Instrument editor.
+        - MacOsX: RST in the PatternViewer is now "-", as the original key ("*") was unreachable.
+- Removed the "AKY accurate" player. Its maintenance cost outweighs its usefulness.
+- Space to duplicate in the Linker has been disabled, because it was too easy to mess things up, now that Space is used to Play Song. Space in the Linker will also Play song.
+- Corrected the template instruments, added two new ones, changed the selected default instrument.
+
+Bug fixes:
+- AKG player:
+        - Corrected a small bug that could happen when using the Force Instrument Speed effect.
+        - Corrected a bug in the PLY_AKG_Stop method, forgot to save the stack (thanks wlcracks).
+- AKY player: corrected a possible bug when using a certain player configuration.
+- Corrected sample export when the sample is >64kb: an error is shown instead of a crash (thanks Arnaud).
+- Corrected a possible crash when pasting, if going beyond the last line of a pattern.
+- Corrected a crash that could happen when loading an instrument on Linux (thanks Roudoudou).
+
+
+2.0.0a4 - 01/11/18
+--------------------------------------
+Breaking changes:
+- The Z80 assembler now targets Rasm (by Roudoudou). Minimum effort are needed to convert them to SJasmPlus though.
+  This was required to implement the player configuration feature (see below) in a better way.
+  Please check the "players" page on the website to find tricks on how to use it on any assembler.
+
+New features:
+- Copy/cut/paste in the Pattern Viewer.
+- Added a contextual menu in the Pattern Viewer.
+- Changes in the keyboard shortcuts in the Pattern Viewer (transpose, octave, instrument, solo, mute, etc.).
+- Added an Arpeggio Generator in the Pattern Viewer. Enter notes, select them, right-click and generate an arpeggio from them!
+- UI changes:
+    - Changed the location of the Meters, now besides the Linker. More space!
+    - Changed the layout of some pop-ups to make them more small-screen friendly.
+- Player configuration:
+    - "Player configuration" source files can be created when exporting songs or sound effects.
+      Using such files, the players only compile what the songs require (CPU and memory gain!).
+      - Done for AKG and its sound effect player.
+      - Done for Lightweight and its sound effect player.
+      - Done for AKY (Z80 version only, "normal" version (accurate/stable not done)).
+- Song optimizer: on export, the Songs are more optimized (will introduce "clean song" options in the UI in later releases).
+- Added a Vortex Tracker 2 import (.VT2/.txt).
+- Added a Chip'n'Sfx import (.CHP).
+- YM Analyser tool: load and play YMs, extract sounds from them.
+- YM are now exported with digidrums.
+- Atari ST:
+    - The AKY Player has been converted to 68000 for Atari ST, by GGN. A huge thanks to him!
+    - Added an option in the AKY export to encode all label references relative to the beginning of the song (useful for Atari ST players).
+- Sample export:
+    - Added a fade out option to prevent clicks, for non-looping sounds. It can go to 0 of to the middle value.
+    - The padding value can also be 0, or the middle value.
+    - Added an option to export only the necessary length.
+- Source profile:
+    - Added a mnemonic for strings.
+
+Bug fixes:
+- Corrected a big bug when inserting/deleting an item in Speed/Event Tracks (the wrong track could be changed).
+- Corrected a source compilation problem when exporting samples in AKG format (thanks Hicks).
+- Corrected a bug making the "export samples" dialog disabled, if in AKG/RAW export, export samples was off.
+- Corrected a bug with the "source to Orgams" Python converter (thanks Hicks).
+- Improved/corrected how the Retrig in instruments is exported (AKG, Lightweight, sound effects).
+- Corrected a small UI bug about the selection when collapsing tracks.
+- Corrected how the PSGs are addressed on SpecNext (stereo wrongly applied) (thanks Emook).
+- Limited the export binary to 4 digits (#ffff) max. Handled correctly out-of-bounds assembling.
+
+
+
+
+2.0.0a3 - 11/05/18
+--------------------------------------
+New features:
+- Adapted all the players to MSX, Spectrum.
+- Added a MOD player (CPC-only, limited effects).
+- Created a specific Lightweight player for the SHARP MZ 700, as well as the sound effect player.
+- Adapted the Lightweight player to MSX, Spectrum, Sharp MZ 700.
+- Added a AKY player that uses the 6-channel of the TurboSound extension for Spectrum.
+- Added a AKY player that uses the 9-channel of the Spectrum Next.
+- RAW and AKG export (via UI and command line) now integrate sample export.
+- Added new parameters in all the command line tools to set the source profiles (change mnemonics, etc.).
+- In the PSGs, the mixing type can be set (ABC, ACB, BCA etc.).
+- In the Output Panel of the Setup, and the WAV Exporter, the volume of each channel (left/center/right) can be defined.
+- In the Source Profiles, added the possibility to encode "one mnemonic type per line" (especially useful for 68000 assemblers). Also available for all the command line tools.
+- Added a basic DC offset removal on WAV export.
+
+Bug fixes:
+- Corrected a big bug that made the Save option fail when exiting (thanks XiA).
+- Corrected a bug in AKY that could make the Hardware-only sounds sound bad.
+- Corrected how the MOD import wrongly transposed its notes.
+- Corrected a crash that could happen when exporting as RAW with Pitches.
+- The center volume has been corrected (too low according to the real CPC).
+- Saving a file could fail if its name was illegal (instrument with a strange name, etc.).
+- Corrected a bug in the MOD import, making the channel mixing option ignored.
+- Corrected some minor display problems when changing the height of a Pattern, if the cursor was outside of the new height.
+- Corrected possible crash when erasing patterns from the linker.
+
+Breaking change:
+- RAW format slightly modified.
+- MAC native menu bar has been DISABLED. A JUCE bug (it seems) made it disabled when popups+file choosers are shown.
+  I've filed a bug report, waiting for it to be corrected... As a workaround, I disabled the native MAC menu. Sorry. But at least, you can use the software.
+- Windows XP is no more supported. Not my fault, the cross-platform framework I use (JUCE) does not support it anymore.
+
+Other additions:
+- Displayed the song name in the title bar, if any.
+- Added another demo song by Excellence In Art (thanks!).
+- Optimized the AKY Stabilized player from 1183 to 1174 nops, thanks to Hicks.
+- MOD import: the volume in the effects are converted to logarithmic values to better fit the PSG.
+
+
+
+
+
+2.0.0a2 - 27/02/18
+--------------------------------------
+New features:
+- Added the Generic player, with sound effects.
+- Added a stand-alone sound effects player.
+- Added a NOP-accurate AKY player (for Amstrad CPC).
+- Breaking change: the players are now initialized with HL, not DE.
+- MOD: Silently corrected old MOD (15-instrument) which loop offset was wrong. Some old MOD will now load.
+- UI: Allowed the use of the native title bar (in the Setup).
+- UI: Corrected a small bug on the Lightweight extension on export, was using AKY instead of AKL (thanks AST).
+- Added a message when playing a song if there is no sound card.
+- Added a log file in case of a crash.
+- A dialog opens while loading and saving a song, the operation is done asynchronously.
+- Tweaked the generated output of the Sound Effects source.
+- Reduced the height of the Song Properties window, too big for some screens.
+
+Bug fixes:
+- CRASH: Corrected crashes when exporting as binary while using a Source Profile not understood by the embedded Rasm.
+- CRASH: Corrected a crash that could happen when exporting as RAW.
+- CRASH: Corrected a crash happening when there was no sound card.
+- Corrected some IO problems in all the players.
+- Corrected a small bug in the volume for the sound effects in the Lightweight player.
+- Corrected a bug in the Instrument Editor: the software pitch (in a Hard To Soft line) was in wrong direction.
+- Corrected the export as binary for Sound effect: it exported as source. The command line tools also have now a security preventing this.
+- Improve the readability of the JUCE File Chooser, used in case the OS doesn't have kdialog/zenith.
+
+
+
+
+
+
+2.0.0a1 - 06/11/17 - First release
+--------------------------------------
