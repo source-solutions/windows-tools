@@ -3,6 +3,10 @@ A collection of x86 binary tools for use with the Chloe 280SE.
 
 These tools will work on Windows (i386 and AMD64 architecture) and Windows 11 (ARM). The should also run on WINE under Linux (i386 and AMD64). On macOS they will work in a Windows 11 (ARM) virtual machine. They may work under WINE although you may find it easier to use [CrossOver](https://www.codeweavers.com/crossover#requirements). Some of these tools are also available on Linux and macOS. Where tools are not provided as part of this repository, they are available from the links in the following list.
 
+### Disclaimer
+
+We make no warranty for these third-party tools. Use is entirely at your own risk.
+
 ## Emulators
 
 ### Retro Virtual Machine
