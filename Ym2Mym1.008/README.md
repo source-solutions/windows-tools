@@ -55,7 +55,8 @@ For reference, here is the known clock speed of a few machines:
 <ul>
 <li>Oric: 1MHz
 <li>Amstrad CPC: 1MHz
-<li>Sinclair Spectrum: 1.7734MHz
+<li>Chloe 280SE: 1.75MHz
+<li>ZX Spectrum 128: 1.77345MHz
 <li>Atari ST: 2MHz
 </ul>
 <p>
