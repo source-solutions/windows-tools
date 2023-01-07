@@ -1,0 +1,8 @@
+All Ay_Emul: Sergey Bulba
+Design: Ivan Reshetnikov
+AY-3-8910 and YM2149F noise algorithm: Hacker KAY and Sergey Bulba
+AY-3-8910 and YM2149F level tables: Hacker KAY (really used in Ay_Emul), Lion17 (reserved in sources) and V_Soft (reserved in sources)
+Icons: Sergey Bulba, Ivan Reshetnikov, David Willis, bcass, X-agon, Graham Goring, Exocet and Roman Morozov
+MC68000 emulation: Starscream 680x0 emulation library by Neill Corlett (corlett@elwha.nrrc.ncsu.edu) for MC68000 emulation (modified by Stéphane Dallongeville and Carsten Elton Sørensen)
+YM2 sample datas: from digidrum.cpp of Open Source ST-Sound Library by Arnaud Carré
+SNDH music duration database (optional): from https://sourceforge.net/p/sc68/code/HEAD/tree/file68/src/timedb.inc.h of sc68 project by Benjamin Gerard
