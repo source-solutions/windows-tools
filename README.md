@@ -43,7 +43,7 @@ This will convert the an input `YM` file designed for a 2MHz PSG to an `MYM` out
 
 ### RASM
 
-[RASM](https://github.com/EdouardBERGE/rasm/releases) is a fast Z80 cross-assembler with many features. It is used to build the Chloe 280SE firmware.
+[RASM](https://github.com/EdouardBERGE/rasm/releases) is a fast Z80 cross-assembler with many features. It is used to build the Chloe 280SE firmware. It has online [documentation](http://rasm.wikidot.com/english-index:home).
 
 ## Fonts
 
