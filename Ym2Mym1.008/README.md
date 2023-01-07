@@ -1,20 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
-
-<HTML lang=fr dir=ltr>
-	<HEAD>
-		<meta name="robots" content="noindex">
-		<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
-		<title>OSDK - Ym2Mym</title>
-		<link href="documentation.css" rel="stylesheet" type="text/css">
-	</HEAD>
-
-	<BODY>
-
-<hr>
-<A href="documentation.htm"><img src="arrow_back.gif"></A>
-<img src="pics/osdk_logo_small.png">
-<hr>
-
 		<h1>Ym2Mym</h1>
 
 <p id=chapter>Description</p>
@@ -33,7 +16,7 @@ It is an unfortunate fact that only very few Oric games had music back in the 80
 <p id=chapter>YM Files</p>
 
 <div class="article">
-The YM file format was originally designed by Arnaud Carré as a way to record Atari ST musics to make them replayable on a PC.
+The YM file format was originally designed by Arnaud CarrÃ© as a way to record Atari ST musics to make them replayable on a PC.
 <br>
 <br>
 Technically a YM file is simply a register dump of the music: A program captured 50 times per second the content of the values sent to the YM chip. 
@@ -235,14 +218,3 @@ As a final note, we'd like to point out that if technically speaking the AY and 
 <ul>
 	<li>First version by Marq/Lieves!Tuore & Fit (marq@iki.fi)</li>
 </ul>
-
-
-<hr>
-<A href="documentation.htm"><img src="arrow_back.gif"></A>
-<img src="pics/osdk_logo_small.png">
-<hr>
-
-
-	</BODY>
-</HTML>
-
