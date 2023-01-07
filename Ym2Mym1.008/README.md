@@ -108,8 +108,9 @@ As a final note, we'd like to point out that if technically speaking the AY and 
 <ul>
 <li>-t0        => Use Reference (no retune)</li>
 <li>-t1.0      => Oric, Amstrad CPC [default]</li>
-<li>-t1.773400 => ZX Spectrum</li>
-<li>-t2.0      => Atari ST</li>
+<li>-t1.75     => Chloe 280SE</li>
+<li>-t1.77345  => ZX Spectrum 128</li>
+<li>-t2        => Atari ST</li>
 <br>
 </ul>
 </li>
